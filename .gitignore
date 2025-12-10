@@ -1,0 +1,33 @@
+# Archivos de soluciones para el profesor
+# No deben compartirse con los estudiantes
+**/SOLUCIONES.md
+**/soluciones.md
+**/solutions.md
+**/SOLUTIONS.md
+
+# Archivos de configuración del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos temporales
+*.tmp
+*.swp
+*~
+
+# Directorios de entornos virtuales Python
+venv/
+env/
+__pycache__/
+*.pyc
+
+# Archivos de IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs
+*.log
+
+# Node modules (si se usan en el futuro)
+node_modules/
