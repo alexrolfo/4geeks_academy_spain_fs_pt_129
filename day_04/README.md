@@ -8,6 +8,98 @@
 
 ---
 
+## 🗂️ El Sistema de Archivos y Carpetas
+
+Antes de empezar a usar la terminal, es importante entender cómo está organizado tu ordenador.
+
+### ¿Qué es un sistema de archivos?
+
+Cuando compras un ordenador, ya viene con una **estructura de carpetas organizada** instalada por defecto. Esta estructura es como un gran árbol de carpetas que contiene todo lo necesario para que el sistema operativo funcione.
+
+A medida que usas tu ordenador, vas agregando tus propios archivos y carpetas a esta estructura (documentos, fotos, proyectos, etc.).
+
+### Estructura básica del sistema
+
+Todo el sistema de archivos comienza desde una carpeta raíz (la "base" del árbol):
+
+**En Mac/Linux:** La raíz se llama `/`  
+**En Windows:** La raíz suele ser `C:\`
+
+### Carpetas principales del sistema (Mac/Linux)
+
+Desde la raíz (`/`), el sistema tiene varias carpetas importantes:
+
+```
+/
+├── Users/           # Carpeta de todos los usuarios
+│   ├── tu_nombre/   # Tu carpeta personal (aquí guardas TUS archivos)
+│   │   ├── Documents/
+│   │   ├── Downloads/
+│   │   ├── Desktop/
+│   │   └── Pictures/
+│   └── otro_usuario/
+├── Applications/    # Programas instalados (Chrome, VS Code, etc.)
+├── System/          # Archivos del sistema operativo (no tocar)
+├── Library/         # Configuraciones del sistema
+├── tmp/             # Archivos temporales
+└── etc/             # Configuraciones globales
+```
+
+### Tu carpeta personal
+
+La carpeta más importante para ti es **tu carpeta personal** (también llamada "home"):
+
+```
+/Users/tu_nombre/     # En Mac/Linux
+C:\Users\tu_nombre\   # En Windows
+```
+
+Esta es donde guardas:
+- 📄 Documentos (`Documents/`)
+- 📥 Descargas (`Downloads/`)
+- 🖼️ Imágenes (`Pictures/`)
+- 🖥️ Escritorio (`Desktop/`)
+- 💻 Tus proyectos de programación
+
+### Analogía visual
+
+Piensa en el sistema de archivos como un **edificio de apartamentos**:
+
+- **La raíz (`/`)** es el edificio completo
+- **`/Users/`** es un piso donde viven todos los usuarios
+- **`/Users/tu_nombre/`** es TU apartamento específico
+- **`/Users/tu_nombre/Documents/`** es una habitación dentro de tu apartamento
+- **`/Users/tu_nombre/Documents/proyecto.txt`** es un objeto dentro de esa habitación
+
+### ¿Por qué es importante entender esto?
+
+1. **Cuando abres la terminal**, siempre estás "ubicado" en alguna carpeta (normalmente tu carpeta personal)
+2. **Los comandos operan** en la carpeta donde estás ubicado
+3. **Para moverte entre carpetas** necesitas entender esta estructura
+4. **Tus proyectos de programación** estarán en algún lugar de esta estructura
+
+### Ejemplo práctico
+
+Si creas un proyecto web en tu carpeta personal:
+
+```
+/Users/tu_nombre/
+└── projects/
+    └── mi_web/
+        ├── index.html
+        ├── css/
+        │   └── style.css
+        └── images/
+            └── logo.png
+```
+
+La ruta completa al archivo `style.css` sería:
+```
+/Users/tu_nombre/projects/mi_web/css/style.css
+```
+
+---
+
 ## 🖥️ ¿Qué es la Terminal?
 
 La **terminal** (también llamada consola o línea de comandos) es una interfaz de texto que nos permite comunicarnos directamente con el sistema operativo de nuestro ordenador.
