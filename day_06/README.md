@@ -5,6 +5,7 @@
 Este documento es una guía práctica diseñada para estudiantes que están aprendiendo a trabajar en equipo con Git. El objetivo principal es **entender cómo y por qué surgen los conflictos** cuando varios desarrolladores modifican el mismo archivo, y más importante aún, **cómo resolverlos de manera efectiva**.
 
 A lo largo de este tutorial encontrarás:
+
 - Un **diagrama visual** que muestra el flujo completo del proceso
 - Un **timeline realista** con horarios y pasos específicos que seguirían dos desarrolladores
 - **Ejemplos de código** que muestran exactamente cómo se ve un conflicto y cómo resolverlo
@@ -25,11 +26,13 @@ Antes de ver el ejemplo completo, es importante entender las dos formas principa
 **¿Cómo funciona?**
 
 Cuando haces merge, Git:
+
 1. Encuentra el commit común más reciente entre ambas ramas (el "ancestro común")
 2. Compara los cambios de ambas ramas desde ese punto
 3. Combina los cambios y crea un nuevo commit que tiene dos "padres"
 
 **Ventajas:**
+
 - Mantiene el historial completo y verdadero de cómo se desarrolló el proyecto
 - Es más seguro y fácil de entender para principiantes
 - Los conflictos se resuelven una sola vez
@@ -107,14 +110,15 @@ git log --oneline --graph --all
 ```
 
 **Salida:**
+
 ```
 *   G - Continue work
 *   F - Merge feature into main (2 padres: D y E)
-|\  
+|\
 | * D - Add logout
 | * C - Add login
 * | E - Fix bug
-|/  
+|/
 * B - Add README
 * A - Initial commit
 ```
@@ -125,35 +129,122 @@ Nota cómo el commit F tiene **dos líneas** que suben ("|\\"): una hacia D y ot
 
 **¿Qué es?**
 
-`git rebase` "reescribe" el historial moviendo tus commits para que parezca que empezaste tu trabajo desde el último commit de la otra rama. Es como decir: "quiero que mis cambios estén *después* de los cambios de main".
+`git rebase` "reescribe" el historial moviendo tus commits para que parezca que empezaste tu trabajo desde el último commit de la otra rama. Es como decir: "quiero que mis cambios estén _después_ de los cambios de main".
 
 **¿Cómo funciona?**
 
 Cuando haces rebase, Git:
+
 1. Guarda temporalmente tus commits
 2. Actualiza tu rama al último commit de la rama base
 3. Aplica tus commits uno por uno encima
 
 **Ventajas:**
+
 - Historial lineal y más limpio (sin commits de merge)
 - Más fácil de leer y seguir
 - Profesional para proyectos open source
 
 **Desventajas:**
+
 - Reescribe el historial (puede ser peligroso en ramas compartidas)
 - Si hay conflictos, debes resolverlos commit por commit
 - Requiere más experiencia
 
-#### Después de Git Rebase
+#### ANTES de Git Rebase: Situación con Bifurcación
 
 ```mermaid
 gitGraph
     commit id: "A (Initial)"
     commit id: "B (Add README)"
-    commit id: "E (Fix bug)"
-    commit id: "C' (Add login)" type: HIGHLIGHT
-    commit id: "D' (Add logout)" type: HIGHLIGHT tag: "Lineal!"
+    branch feature
+    checkout feature
+    commit id: "C (Add login)" tag: "feature"
+    commit id: "D (Add logout)"
+    checkout main
+    commit id: "E (Fix bug)" tag: "main"
 ```
+
+**Estado de las ramas:**
+- `main`: A → B → E
+- `feature`: A → B → C → D (bifurcado desde B)
+
+**Ver el historial con:**
+```bash
+git log --oneline --graph --all
+```
+
+**Salida ANTES del rebase:**
+```
+* E (main) - Fix bug
+| * D (feature) - Add logout
+| * C - Add login
+|/
+* B - Add README
+* A - Initial commit
+```
+
+Nota la **bifurcación** (|/) - las ramas se separaron en el commit B.
+
+**Ver qué commits tiene cada rama:**
+```bash
+# Commits en main
+git log main --oneline
+# Resultado:
+#   E - Fix bug
+#   B - Add README
+#   A - Initial commit
+
+# Commits en feature
+git log feature --oneline
+# Resultado:
+#   D - Add logout
+#   C - Add login
+#   B - Add README
+#   A - Initial commit
+
+# ¿Qué commits tiene feature que NO están en main?
+git log main..feature --oneline
+# Resultado:
+#   D - Add logout
+#   C - Add login
+
+# ¿Qué commits tiene main que NO están en feature?
+git log feature..main --oneline
+# Resultado:
+#   E - Fix bug
+```
+
+**Resumen ANTES del rebase:**
+- `main` tiene: A, B, E (3 commits)
+- `feature` tiene: A, B, C, D (4 commits)
+- `feature` NO tiene el commit E de main
+- `main` NO tiene los commits C y D de feature
+
+#### DESPUÉS de Git Rebase: Nueva Bifurcación desde E
+
+```mermaid
+gitGraph
+    commit id: "A (Initial)"
+    commit id: "B (Add README)"
+    commit id: "E (Fix bug)" tag: "main"
+    branch feature
+    commit id: "C' (Add login)" type: HIGHLIGHT
+    commit id: "D' (Add logout)" type: HIGHLIGHT
+```
+
+**Estado de las ramas:**
+- `main`: A → B → E (sin cambios)
+- `feature`: A → B → E → C' → D' (bifurca desde E, no desde B)
+
+**¡CLAVE!** Siguen existiendo **DOS ramas** (`main` y `feature`), con bifurcación:
+- ❌ **ANTES**: `feature` bifurcaba desde B (commits: B → C → D)
+- ✅ **DESPUÉS**: `feature` bifurca desde E (commits: E → C' → D')
+- `main` apunta al commit E
+- `feature` apunta al commit D'
+- La diferencia: ahora `feature` incluye el commit E de `main`
+
+**¡IMPORTANTE!** El rebase **modifica solo la rama `feature`**, NO la rama `main`. Es como si hubieras creado la rama `feature` DESPUÉS del commit E en lugar de después del commit B.
 
 **Ejemplo práctico completo - Comandos que generan este gráfico:**
 
@@ -177,15 +268,32 @@ git checkout main
 echo "fix" > bugfix.js
 git add . && git commit -m "E: Fix bug"                 # Commit E
 
-# 4. REBASE: "Mover" commits de feature después de E
-git checkout feature
-git rebase main
+# 4. Ver el estado ANTES del rebase
+git log --oneline --graph --all
+# Salida ANTES:
+#   * E (main) - Fix bug
+#   | * D (feature) - Add logout
+#   | * C (feature) - Add login
+#   |/
+#   * B - Add README
+#   * A - Initial commit
+
+# 5. REBASE: Traer cambios de main a feature y "mover" C y D
+git checkout feature                  # Nos posicionamos en feature
+git rebase main                       # Rebase feature sobre main
+
+# ¡IMPORTANTE! Este comando:
+# - Modifica SOLO la rama feature (donde estás)
+# - NO modifica la rama main
+# - Trae los commits de main (E) a feature
+# - Reaplica los commits de feature (C, D) encima de E
 
 # Git hace internamente:
 # 1. Guarda temporalmente C y D
-# 2. Mueve feature a donde está main (commit E)
-# 3. Aplica C creando C' (nuevo hash)
-# 4. Aplica D creando D' (nuevo hash)
+# 2. Mueve el puntero de feature a donde está main (commit E)
+# 3. Aplica C creando C' con nuevo hash
+# 4. Aplica D creando D' con nuevo hash
+# 5. Actualiza el puntero de feature a D'
 
 # Si hay conflictos durante la aplicación de C:
 #   - Editas y resuelves el conflicto
@@ -200,47 +308,146 @@ git rebase main
 git rebase --abort
 ```
 
-**Ver el historial resultante:**
+**Ver el historial DESPUÉS del rebase:**
 
 ```bash
 git log --oneline --graph --all
 ```
 
-**Salida:**
+**Salida DESPUÉS del rebase:**
+
 ```
-* D' - Add logout (nuevo hash: abc123)
-* C' - Add login (nuevo hash: def456)
-* E - Fix bug
+* D' (feature) - Add logout [nuevo hash: abc123]
+* C' (feature) - Add login [nuevo hash: def456]
+* E (main) - Fix bug
 * B - Add README
 * A - Initial commit
 ```
 
-**Comparación de hashes ANTES y DESPUÉS del rebase:**
+**Comparación visual del historial:**
 
-```bash
-# ANTES del rebase (en feature):
-# C = 789xyz
-# D = 456uvw
+```
+ANTES del rebase:                    DESPUÉS del rebase:
+(bifurca desde B)                    (bifurca desde E)
 
-# DESPUÉS del rebase (en feature):
-# C' = def456  (DIFERENTE! Mismo contenido, nuevo hash)
-# D' = abc123  (DIFERENTE! Mismo contenido, nuevo hash)
+  * E (main)                           | * D' (feature)
+  | * D (feature)                      | * C' (feature)
+  | * C                                |/
+  |/                                   * E (main)
+  * B                                  * B
+  * A                                  * A
+
+  feature sale desde B                 feature sale desde E
+  (no incluye E)                       (incluye E)
 ```
 
 Nota cómo:
-1. El historial es **completamente lineal** (no hay bifurcaciones)
-2. C' y D' son **nuevos commits** con hashes diferentes
-3. Los commits originales C y D ya no existen en el historial
+- **ANTES**: La bifurcación (|/) está en B, `feature` NO incluye E
+- **DESPUÉS**: La bifurcación (|/) ahora está en E, `feature` SÍ incluye E
+- **Siguen siendo DOS ramas**, pero el punto de bifurcación cambió de B a E
+- `feature` ahora contiene todos los cambios de `main` (commit E) más los suyos propios
+
+**Ver qué commits tiene cada rama DESPUÉS:**
+```bash
+# Commits en main (NO cambió)
+git log main --oneline
+# Resultado:
+#   E - Fix bug
+#   B - Add README
+#   A - Initial commit
+
+# Commits en feature (CAMBIÓ)
+git log feature --oneline
+# Resultado:
+#   D' - Add logout          [NUEVO HASH]
+#   C' - Add login           [NUEVO HASH]
+#   E - Fix bug              [¡AHORA ESTÁ EN FEATURE!]
+#   B - Add README
+#   A - Initial commit
+
+# ¿Qué commits tiene feature que NO están en main?
+git log main..feature --oneline
+# Resultado:
+#   D' - Add logout
+#   C' - Add login
+
+# ¿Qué commits tiene main que NO están en feature?
+git log feature..main --oneline
+# Resultado:
+#   (vacío - feature tiene TODOS los commits de main)
+```
+
+**Resumen DESPUÉS del rebase:**
+- `main` tiene: A, B, E (3 commits - **sin cambios**)
+- `feature` tiene: A, B, E, C', D' (5 commits - **cambió**)
+- `feature` AHORA SÍ tiene el commit E de main
+- `main` sigue sin tener C' y D' (que son los nuevos commits de feature)
+
+**Visualización de los punteros de ramas:**
+
+```
+ANTES del rebase:                   DESPUÉS del rebase:
+(bifurca desde B)                   (bifurca desde E)
+
+       main                                main
+        ↓                                   ↓
+    A → B → E                         A → B → E
+         ↗                                       ↘
+    A → B → C → D                         C' → D'
+              ↑                                ↑
+           feature                          feature
+
+  feature sale desde B                feature sale desde E
+  (B es el ancestro común)            (E es el ancestro común)
+```
+
+**Tabla comparativa ANTES vs DESPUÉS del rebase:**
+
+| Aspecto | ANTES del rebase | DESPUÉS del rebase |
+|---------|------------------|----------------------|
+| **Rama `main`** | A → B → E | A → B → E (sin cambios) |
+| **Rama `feature`** | A → B → C → D | A → B → E → C' → D' |
+| **Punto de bifurcación** | Desde B | Desde E |
+| **Estructura** | Bifurcada (\|/ en B) | Bifurcada (\|/ en E) |
+| **Commits totales en `feature`** | 4 commits | 5 commits |
+| **¿Feature tiene E?** | ❌ NO | ✅ SÍ |
+| **Hashes de C y D** | Originales (C, D) | Nuevos (C', D') |
+| **¿Main cambió?** | - | ❌ NO |
+| **Número de ramas** | 2 ramas | 2 ramas (siguen existiendo ambas) |
+| **Ancestro común** | B | E |
+
+**Comparación de hashes:**
+
+| Commit | ANTES del rebase | DESPUÉS del rebase | ¿Cambió? |
+|--------|------------------|---------------------|----------|
+| C | `789xyz` (feature) | `def456` (feature) | ✅ Sí - Nuevo hash |
+| D | `456uvw` (feature) | `abc123` (feature) | ✅ Sí - Nuevo hash |
+| E | `111aaa` (main) | `111aaa` (main) | ❌ No - Mismo hash |
+
+**Puntos clave:**
+
+1. **SÍ sigue habiendo bifurcación** - siguen siendo dos ramas separadas
+2. **El punto de bifurcación cambió**: de B a E
+3. C' y D' son **nuevos commits** con hashes diferentes
+4. Los commits originales C y D ya no existen en el historial de `feature`
+5. La rama `main` **NO se modificó** en absoluto
+6. Ahora `feature` contiene todos los cambios de `main` (commit E) más los suyos propios
+7. El rebase NO crea una "línea recta" - crea una **nueva bifurcación desde un punto diferente**
+
+**Analogía:**
+- **ANTES**: Es como si dos caminos se separaran en la ciudad B
+- **DESPUÉS**: Es como si dos caminos se separaran en la ciudad E (más adelante)
+- Siguen siendo dos caminos diferentes, solo que ahora se separan más tarde
 
 ### ¿Cuándo usar cada uno?
 
-| Situación | Usar |
-|-----------|------|
-| Eres principiante | **Merge** |
-| Trabajas en equipo en una rama compartida | **Merge** |
-| Quieres mantener historial completo | **Merge** |
-| Trabajas solo en tu rama | **Rebase** |
-| Quieres historial limpio antes de hacer PR | **Rebase** |
+| Situación                                       | Usar       |
+| ----------------------------------------------- | ---------- |
+| Eres principiante                               | **Merge**  |
+| Trabajas en equipo en una rama compartida       | **Merge**  |
+| Quieres mantener historial completo             | **Merge**  |
+| Trabajas solo en tu rama                        | **Rebase** |
+| Quieres historial limpio antes de hacer PR      | **Rebase** |
 | Proyecto open source con lineamientos estrictos | **Rebase** |
 
 **Regla de oro**: ¡**NUNCA** hagas rebase de commits que ya has compartido (pushed) a una rama pública donde otros trabajan!
@@ -251,27 +458,27 @@ Nota cómo:
 gitGraph
     commit id: "Initial commit"
     commit id: "Feature: base code"
-    
+
     branch rama-A
     branch rama-B
-    
+
     checkout rama-A
     commit id: "Dev A: modifica header"
     commit id: "Dev A: añade estilos"
-    
+
     checkout main
     merge rama-A tag: "Merge sin conflicto ✓"
-    
+
     checkout rama-B
     commit id: "Dev B: modifica header (conflicto!)"
     commit id: "Dev B: añade footer"
-    
+
     checkout main
     commit id: "Intento merge rama-B ✗"
-    
+
     checkout rama-B
     commit id: "Dev B: resuelve conflicto"
-    
+
     checkout main
     merge rama-B tag: "Merge exitoso ✓"
 ```
@@ -279,21 +486,25 @@ gitGraph
 ## Timeline Realista
 
 ### Día 1 - Lunes (Mañana)
+
 **09:00** - Ambos desarrolladores empiezan a trabajar
 
 **Desarrollador A:**
+
 ```bash
 git checkout -b rama-A
 # Trabaja en el archivo index.html
 ```
 
 **Desarrollador B:**
+
 ```bash
 git checkout -b rama-B
 # Trabaja en el mismo archivo index.html (¡sin saberlo!)
 ```
 
 ### Día 1 - Lunes (Tarde)
+
 **16:00** - Desarrollador A termina primero
 
 ```bash
@@ -311,6 +522,7 @@ git push origin rama-A
 ```
 
 ### Día 2 - Martes (Mañana)
+
 **10:00** - Desarrollador B termina su trabajo
 
 ```bash
@@ -323,6 +535,7 @@ git push origin rama-B
 **10:15** - Desarrollador B crea Pull Request pero... ¡CONFLICTO! ⚠️
 
 ### Día 2 - Martes (Resolución)
+
 **10:30** - Desarrollador B empieza a resolver el conflicto
 
 ```bash
@@ -340,13 +553,13 @@ git merge main
 
 ```html
 <header>
-<<<<<<< HEAD (rama-B)
-    <h1>Mi Sitio Web - Versión 2.0</h1>
-    <img src="logo-blue.png" alt="Logo">
-=======
-    <h1>Mi Sitio Web Renovado</h1>
-    <img src="logo-new.png" alt="Logo">
->>>>>>> main (rama-A)
+  <<<<<<< HEAD (rama-B)
+  <h1>Mi Sitio Web - Versión 2.0</h1>
+  <img src="logo-blue.png" alt="Logo" />
+  =======
+  <h1>Mi Sitio Web Renovado</h1>
+  <img src="logo-new.png" alt="Logo" />
+  >>>>>>> main (rama-A)
 </header>
 ```
 
@@ -354,8 +567,8 @@ git merge main
 
 ```html
 <header>
-    <h1>Mi Sitio Web Renovado - Versión 2.0</h1>
-    <img src="logo-new.png" alt="Logo">
+  <h1>Mi Sitio Web Renovado - Versión 2.0</h1>
+  <img src="logo-new.png" alt="Logo" />
 </header>
 ```
 
@@ -380,18 +593,18 @@ git push origin rama-B
 ```html
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Mi Sitio</title>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <h1>Mi Sitio Web</h1>
-        <img src="logo.png" alt="Logo">
+      <h1>Mi Sitio Web</h1>
+      <img src="logo.png" alt="Logo" />
     </header>
     <main>
-        <p>Contenido principal</p>
+      <p>Contenido principal</p>
     </main>
-</body>
+  </body>
 </html>
 ```
 
@@ -399,8 +612,8 @@ git push origin rama-B
 
 ```html
 <header>
-    <h1>Mi Sitio Web Renovado</h1>
-    <img src="logo-new.png" alt="Logo">
+  <h1>Mi Sitio Web Renovado</h1>
+  <img src="logo-new.png" alt="Logo" />
 </header>
 ```
 
@@ -408,11 +621,11 @@ git push origin rama-B
 
 ```html
 <header>
-    <h1>Mi Sitio Web - Versión 2.0</h1>
-    <img src="logo-blue.png" alt="Logo">
+  <h1>Mi Sitio Web - Versión 2.0</h1>
+  <img src="logo-blue.png" alt="Logo" />
 </header>
 <footer>
-    <p>© 2025 Mi Empresa</p>
+  <p>© 2025 Mi Empresa</p>
 </footer>
 ```
 
@@ -421,23 +634,23 @@ git push origin rama-B
 ```html
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Mi Sitio</title>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <!-- Combinación de ambos cambios -->
-        <h1>Mi Sitio Web Renovado - Versión 2.0</h1>
-        <img src="logo-new.png" alt="Logo">
+      <!-- Combinación de ambos cambios -->
+      <h1>Mi Sitio Web Renovado - Versión 2.0</h1>
+      <img src="logo-new.png" alt="Logo" />
     </header>
     <main>
-        <p>Contenido principal</p>
+      <p>Contenido principal</p>
     </main>
     <footer>
-        <!-- Footer de Desarrollador B se mantiene -->
-        <p>© 2025 Mi Empresa</p>
+      <!-- Footer de Desarrollador B se mantiene -->
+      <p>© 2025 Mi Empresa</p>
     </footer>
-</body>
+  </body>
 </html>
 ```
 
@@ -465,12 +678,12 @@ git log --oneline --graph --all
 
 ## Resumen del Timeline
 
-| Tiempo | Acción |
-|--------|--------|
-| **2-3 horas** | Desarrollo en ramas paralelas |
-| **15 min** | Primer merge (sin conflicto) |
-| **30-45 min** | Detectar + resolver conflicto |
-| **Total: ~3-4 horas** | Para todo el proceso |
+| Tiempo                | Acción                        |
+| --------------------- | ----------------------------- |
+| **2-3 horas**         | Desarrollo en ramas paralelas |
+| **15 min**            | Primer merge (sin conflicto)  |
+| **30-45 min**         | Detectar + resolver conflicto |
+| **Total: ~3-4 horas** | Para todo el proceso          |
 
 ## Tips para Evitar Conflictos
 
