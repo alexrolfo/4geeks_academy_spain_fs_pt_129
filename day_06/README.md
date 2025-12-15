@@ -48,7 +48,23 @@ gitGraph
     commit id: "E (Fix bug)"
 ```
 
-**Comandos para crear este escenario:**
+#### Después de Git Merge
+
+```mermaid
+gitGraph
+    commit id: "A (Initial)"
+    commit id: "B (Add README)"
+    branch feature
+    checkout feature
+    commit id: "C (Add login)"
+    commit id: "D (Add logout)"
+    checkout main
+    commit id: "E (Fix bug)"
+    merge feature id: "F (Merge)" tag: "2 padres"
+    commit id: "G (Continue)"
+```
+
+**Ejemplo práctico completo - Comandos que generan este gráfico:**
 
 ```bash
 # 1. Crear el repositorio y commits iniciales
@@ -69,38 +85,17 @@ git add . && git commit -m "D: Add logout"              # Commit D
 git checkout main
 echo "fix" > bugfix.js
 git add . && git commit -m "E: Fix bug"                 # Commit E
-```
 
-#### Después de Git Merge
-
-```mermaid
-gitGraph
-    commit id: "A (Initial)"
-    commit id: "B (Add README)"
-    branch feature
-    checkout feature
-    commit id: "C (Add login)"
-    commit id: "D (Add logout)"
-    checkout main
-    commit id: "E (Fix bug)"
-    merge feature id: "F (Merge)" tag: "2 padres"
-    commit id: "G (Continue)"
-```
-
-**Comandos para hacer el merge:**
-
-```bash
-# Estamos en main, queremos integrar feature
+# 4. MERGE: Integrar feature en main
 git checkout main
 git merge feature
-
 # Git crea automáticamente el commit F
 # Si hay conflictos:
-# 1. Editas los archivos en conflicto
-# 2. git add archivo-resuelto.js
-# 3. git commit -m "F: Merge feature into main"
+#   1. Editas los archivos en conflicto
+#   2. git add archivo-resuelto.js
+#   3. git commit -m "F: Merge feature into main"
 
-# Continuar trabajando
+# 5. Continuar trabajando
 echo "new feature" > new.js
 git add . && git commit -m "G: Continue work"           # Commit G
 ```
@@ -149,41 +144,6 @@ Cuando haces rebase, Git:
 - Si hay conflictos, debes resolverlos commit por commit
 - Requiere más experiencia
 
-#### Ejemplo Visual: Situación Inicial (igual que merge)
-
-```mermaid
-gitGraph
-    commit id: "A (Initial)"
-    commit id: "B (Add README)"
-    branch feature
-    checkout feature
-    commit id: "C (Add login)"
-    commit id: "D (Add logout)"
-    checkout main
-    commit id: "E (Fix bug)"
-```
-
-**Comandos para crear este escenario:**
-
-```bash
-# Mismo escenario que el ejemplo de merge
-git init
-echo "Project" > README.md
-git add . && git commit -m "A: Initial commit"          # Commit A
-echo "# Features" >> README.md
-git add . && git commit -m "B: Add README"              # Commit B
-
-git checkout -b feature
-echo "login()" > auth.js
-git add . && git commit -m "C: Add login"               # Commit C
-echo "logout()" >> auth.js
-git add . && git commit -m "D: Add logout"              # Commit D
-
-git checkout main
-echo "fix" > bugfix.js
-git add . && git commit -m "E: Fix bug"                 # Commit E
-```
-
 #### Después de Git Rebase
 
 ```mermaid
@@ -195,10 +155,29 @@ gitGraph
     commit id: "D' (Add logout)" type: HIGHLIGHT tag: "Lineal!"
 ```
 
-**Comandos para hacer el rebase:**
+**Ejemplo práctico completo - Comandos que generan este gráfico:**
 
 ```bash
-# Estamos en feature, queremos "mover" nuestros commits después de E
+# 1. Crear el repositorio y commits iniciales
+git init
+echo "Project" > README.md
+git add . && git commit -m "A: Initial commit"          # Commit A
+echo "# Features" >> README.md
+git add . && git commit -m "B: Add README"              # Commit B
+
+# 2. Crear rama feature y hacer commits
+git checkout -b feature
+echo "login()" > auth.js
+git add . && git commit -m "C: Add login"               # Commit C
+echo "logout()" >> auth.js
+git add . && git commit -m "D: Add logout"              # Commit D
+
+# 3. Mientras tanto, en main hubo un cambio
+git checkout main
+echo "fix" > bugfix.js
+git add . && git commit -m "E: Fix bug"                 # Commit E
+
+# 4. REBASE: "Mover" commits de feature después de E
 git checkout feature
 git rebase main
 
