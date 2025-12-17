@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paso 1: Variables y Tipos de Datos</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: #f5f5f5;
+        }
+        h1 {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        .section {
+            background: white;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #764ba2;
+            margin-top: 0;
+        }
+        .console-output {
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+        }
+        .exercise {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .back-link {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .back-link:hover {
+            background: #764ba2;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-link">← Volver al índice</a>
+    
+    <h1>Paso 1: Variables y Tipos de Datos</h1>
+
+    <div class="section">
+        <h2>📝 Declarando Variables</h2>
+        <p>Abre la consola del navegador (F12) para ver los resultados.</p>
+        <div class="console-output">
+            Revisa la consola para ver los mensajes →
+        </div>
+    </div>
+
+    <div class="section exercise">
+        <h2>✏️ Ejercicio</h2>
+        <p>Completa los TODOs en el código JavaScript y recarga la página para ver los cambios.</p>
+        <ol>
+            <li>Declara tu nombre usando <code>const</code></li>
+            <li>Declara tu edad usando <code>let</code></li>
+            <li>Crea un objeto persona con 3 propiedades</li>
+            <li>Crea un array con tus 3 comidas favoritas</li>
+        </ol>
+    </div>
+
+    <script>
+        console.log("=== PASO 1: VARIABLES Y TIPOS DE DATOS ===\n");
+
+        // ==========================================
+        // 1. DECLARACIÓN DE VARIABLES
+        // ==========================================
+        
+        console.log("--- 1. Declaración de Variables ---");
+        
+        // const: para valores que NO cambian
+        const PI = 3.14159;
+        const nombreEmpresa = "4Geeks Academy";
+        
+        console.log("PI:", PI);
+        console.log("Empresa:", nombreEmpresa);
+        
+        // let: para valores que SÍ cambian
+        let contador = 0;
+        console.log("Contador inicial:", contador);
+        
+        contador = 5;
+        console.log("Contador después de cambiar:", contador);
+        
+        contador += 10; // Suma 10 al contador
+        console.log("Contador después de sumar 10:", contador);
+        
+        // ⚠️ Intenta descomentar la siguiente línea y verás un error:
+        // PI = 3.14; // Error: no se puede reasignar una constante
+        
+        console.log("\n");
+
+        // ==========================================
+        // 2. TIPOS DE DATOS
+        // ==========================================
+        
+        console.log("--- 2. Tipos de Datos ---");
+        
+        // String (texto)
+        const saludo = "Hola Mundo";
+        const ciudad = 'Madrid';
+        const mensaje = `Estamos en ${ciudad}`; // Template literal
+        
+        console.log("String 1:", saludo);
+        console.log("String 2:", ciudad);
+        console.log("Template Literal:", mensaje);
+        
+        // Number (números)
+        const edad = 25;
+        const precio = 19.99;
+        const temperatura = -5;
+        
+        console.log("Edad:", edad);
+        console.log("Precio:", precio);
+        console.log("Temperatura:", temperatura);
+        
+        // Boolean (verdadero/falso)
+        const esMayorDeEdad = true;
+        const estaLloviendo = false;
+        
+        console.log("Es mayor de edad:", esMayorDeEdad);
+        console.log("Está lloviendo:", estaLloviendo);
+        
+        // Array (lista)
+        const frutas = ["manzana", "banana", "naranja"];
+        const numeros = [1, 2, 3, 4, 5];
+        
+        console.log("Frutas:", frutas);
+        console.log("Primera fruta:", frutas[0]); // Los arrays empiezan en 0
+        console.log("Números:", numeros);
+        
+        // Object (objeto)
+        const persona = {
+            nombre: "Ana",
+            edad: 28,
+            ciudad: "Barcelona",
+            estudiante: true
+        };
+        
+        console.log("Persona:", persona);
+        console.log("Nombre de la persona:", persona.nombre);
+        console.log("Edad de la persona:", persona.edad);
+        
+        console.log("\n");
+
+        // ==========================================
+        // 3. OPERACIONES BÁSICAS
+        // ==========================================
+        
+        console.log("--- 3. Operaciones Básicas ---");
+        
+        // Matemáticas
+        const suma = 10 + 5;
+        const resta = 10 - 5;
+        const multiplicacion = 10 * 5;
+        const division = 10 / 5;
+        const modulo = 10 % 3; // Resto de la división
+        
+        console.log("10 + 5 =", suma);
+        console.log("10 - 5 =", resta);
+        console.log("10 * 5 =", multiplicacion);
+        console.log("10 / 5 =", division);
+        console.log("10 % 3 =", modulo);
+        
+        // Concatenación de strings
+        const nombre = "Juan";
+        const apellido = "Pérez";
+        const nombreCompleto = nombre + " " + apellido;
+        const nombreCompletoModerno = `${nombre} ${apellido}`;
+        
+        console.log("Nombre completo (concatenación):", nombreCompleto);
+        console.log("Nombre completo (template literal):", nombreCompletoModerno);
+        
+        console.log("\n");
+
+        // ==========================================
+        // 4. EJERCICIO PRÁCTICO
+        // ==========================================
+        
+        console.log("--- 4. ¡Tu Turno! ---");
+        
+        // TODO: Declara tu nombre usando const
+        const miNombre = "TU_NOMBRE_AQUÍ";
+        
+        // TODO: Declara tu edad usando let
+        let miEdad = 0; // Cambia el 0 por tu edad
+        
+        // TODO: Crea un objeto "miPersona" con las propiedades: nombre, edad, ciudadFavorita
+        const miPersona = {
+            // Completa aquí
+        };
+        
+        // TODO: Crea un array "misComidas" con 3 comidas que te gusten
+        const misComidas = []; // Añade tus comidas aquí
+        
+        // Mostrar tus resultados
+        console.log("Mi nombre:", miNombre);
+        console.log("Mi edad:", miEdad);
+        console.log("Mis datos:", miPersona);
+        console.log("Mis comidas favoritas:", misComidas);
+        
+        console.log("\n");
+
+        // ==========================================
+        // 5. RETO EXTRA
+        // ==========================================
+        
+        console.log("--- 5. Reto Extra ---");
+        
+        // TODO: Calcula tu año de nacimiento
+        const añoActual = 2025;
+        const añoNacimiento = añoActual - miEdad;
+        console.log("Naciste aproximadamente en:", añoNacimiento);
+        
+        // TODO: Crea un mensaje de presentación usando template literals
+        const presentacion = `Hola, me llamo ${miNombre}, tengo ${miEdad} años y nací en ${añoNacimiento}`;
+        console.log(presentacion);
+        
+        console.log("\n=== FIN DEL EJERCICIO ===");
+        console.log("💡 Tip: Modifica los valores y recarga la página para experimentar");
+    </script>
+</body>
+</html>
