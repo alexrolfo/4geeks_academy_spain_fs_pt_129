@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paso 3: Condicionales</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: #f5f5f5;
+        }
+        h1 {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        .section {
+            background: white;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #764ba2;
+            margin-top: 0;
+        }
+        .console-output {
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+        }
+        .exercise {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .back-link {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .back-link:hover {
+            background: #764ba2;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-link">← Volver al índice</a>
+    
+    <h1>Paso 3: Condicionales</h1>
+
+    <div class="section">
+        <h2>🔀 Controlando el Flujo del Código</h2>
+        <p>Las condicionales te permiten tomar decisiones en tu código.</p>
+        <div class="console-output">
+            Abre la consola (F12) para ver los resultados →
+        </div>
+    </div>
+
+    <div class="section exercise">
+        <h2>✏️ Ejercicio</h2>
+        <p>Completa los TODOs en el código JavaScript:</p>
+        <ol>
+            <li>Crea una función que determine si alguien puede votar</li>
+            <li>Clasifica una contraseña según su longitud</li>
+            <li>Usa el operador ternario para verificar si un número es positivo</li>
+        </ol>
+    </div>
+
+    <script>
+        console.log("=== PASO 3: CONDICIONALES ===\n");
+
+        // ==========================================
+        // 1. IF / ELSE BÁSICO
+        // ==========================================
+        
+        console.log("--- 1. If / Else Básico ---");
+        
+        const edad = 20;
+        
+        if (edad >= 18) {
+            console.log("Eres mayor de edad");
+        } else {
+            console.log("Eres menor de edad");
+        }
+        
+        const temperatura = 25;
+        
+        if (temperatura > 30) {
+            console.log("Hace calor");
+        } else if (temperatura > 20) {
+            console.log("Temperatura agradable");
+        } else if (temperatura > 10) {
+            console.log("Hace frío");
+        } else {
+            console.log("Hace mucho frío");
+        }
+        
+        console.log("\n");
+
+        // ==========================================
+        // 2. OPERADORES DE COMPARACIÓN
+        // ==========================================
+        
+        console.log("--- 2. Operadores de Comparación ---");
+        
+        console.log("5 == '5':", 5 == '5');     // true (compara solo valor)
+        console.log("5 === '5':", 5 === '5');   // false (compara valor Y tipo)
+        console.log("5 != '5':", 5 != '5');     // false
+        console.log("5 !== '5':", 5 !== '5');   // true
+        
+        console.log("10 > 5:", 10 > 5);         // true
+        console.log("10 < 5:", 10 < 5);         // false
+        console.log("10 >= 10:", 10 >= 10);     // true
+        console.log("10 <= 5:", 10 <= 5);       // false
+        
+        console.log("\n⚠️ Siempre usa === y !== para evitar errores\n");
+
+        // ==========================================
+        // 3. OPERADORES LÓGICOS: AND, OR, NOT
+        // ==========================================
+        
+        console.log("--- 3. Operadores Lógicos ---");
+        
+        // AND (&&): Todas las condiciones deben ser verdaderas
+        const tieneCarnet = true;
+        const tieneCoche = true;
+        
+        if (edad >= 18 && tieneCarnet && tieneCoche) {
+            console.log("✅ Puedes conducir tu coche");
+        }
+        
+        // OR (||): Al menos una condición debe ser verdadera
+        const esFinDeSemana = true;
+        const esVacaciones = false;
+        
+        if (esFinDeSemana || esVacaciones) {
+            console.log("✅ Puedes descansar");
+        }
+        
+        // NOT (!): Invierte el valor
+        const estaLloviendo = false;
+        
+        if (!estaLloviendo) {
+            console.log("✅ Puedes salir sin paraguas");
+        }
+        
+        // Combinación de operadores
+        const nota = 85;
+        const asistencia = 90;
+        
+        if (nota >= 70 && asistencia >= 80) {
+            console.log("✅ Aprobaste con buena asistencia");
+        } else if (nota >= 70 || asistencia >= 80) {
+            console.log("⚠️ Aprobaste pero mejora tu asistencia o nota");
+        } else {
+            console.log("❌ Reprobaste");
+        }
+        
+        console.log("\n");
+
+        // ==========================================
+        // 4. SWITCH
+        // ==========================================
+        
+        console.log("--- 4. Switch ---");
+        
+        const diaSemana = "lunes";
+        
+        switch (diaSemana) {
+            case "lunes":
+                console.log("Inicio de semana 😴");
+                break;
+            case "miercoles":
+                console.log("Mitad de semana 💪");
+                break;
+            case "viernes":
+                console.log("Casi fin de semana 🎉");
+                break;
+            case "sabado":
+            case "domingo":
+                console.log("Fin de semana 🏖️");
+                break;
+            default:
+                console.log("Día regular");
+        }
+        
+        console.log("\n");
+
+        // ==========================================
+        // 5. OPERADOR TERNARIO
+        // ==========================================
+        
+        console.log("--- 5. Operador Ternario ---");
+        
+        // Sintaxis: condicion ? valorSiTrue : valorSiFalse
+        
+        const edadPersona = 20;
+        const mensaje = edadPersona >= 18 ? "Mayor de edad" : "Menor de edad";
+        console.log(mensaje);
+        
+        // Ejemplo con función
+        function obtenerEstadoClima(temperatura) {
+            return temperatura > 25 ? "Calor ☀️" : "Frío ❄️";
+        }
+        
+        console.log("Clima a 30°:", obtenerEstadoClima(30));
+        console.log("Clima a 15°:", obtenerEstadoClima(15));
+        
+        // Operador ternario anidado (cuidado, puede ser confuso)
+        const puntaje = 85;
+        const calificacion = puntaje >= 90 ? "A" :
+                            puntaje >= 80 ? "B" :
+                            puntaje >= 70 ? "C" : "D";
+        console.log("Calificación:", calificacion);
+        
+        console.log("\n");
+
+        // ==========================================
+        // 6. RENDERIZADO CONDICIONAL
+        // ==========================================
+        
+        console.log("--- 6. Renderizado Condicional ---");
+        
+        function mostrarMensajeBienvenida(usuario) {
+            if (usuario) {
+                return `Bienvenido, ${usuario.nombre} 👋`;
+            } else {
+                return "Por favor, inicia sesión 🔒";
+            }
+        }
+        
+        const usuarioLogueado = { nombre: "Carlos", edad: 30 };
+        const usuarioNoLogueado = null;
+        
+        console.log(mostrarMensajeBienvenida(usuarioLogueado));
+        console.log(mostrarMensajeBienvenida(usuarioNoLogueado));
+        
+        // Función con renderizado condicional complejo
+        function obtenerEstadoCuenta(saldo) {
+            if (saldo > 1000) {
+                return "Cuenta saludable 💰";
+            } else if (saldo > 0) {
+                return "Cuenta activa ✅";
+            } else if (saldo === 0) {
+                return "Sin fondos ⚠️";
+            } else {
+                return "Cuenta en negativo ❌";
+            }
+        }
+        
+        console.log("Saldo 1500:", obtenerEstadoCuenta(1500));
+        console.log("Saldo 500:", obtenerEstadoCuenta(500));
+        console.log("Saldo 0:", obtenerEstadoCuenta(0));
+        console.log("Saldo -100:", obtenerEstadoCuenta(-100));
+        
+        console.log("\n");
+
+        // ==========================================
+        // 7. EJERCICIOS PRÁCTICOS
+        // ==========================================
+        
+        console.log("--- 7. ¡Tu Turno! ---");
+        
+        // TODO: Crea una función que determine si alguien puede votar
+        // En España se vota a partir de los 18 años
+        function puedeVotar(edad) {
+            // Completa aquí
+            return false;
+        }
+        
+        console.log("¿Puede votar (17)?", puedeVotar(17));
+        console.log("¿Puede votar (18)?", puedeVotar(18));
+        console.log("¿Puede votar (25)?", puedeVotar(25));
+        
+        // TODO: Clasifica una contraseña según su longitud
+        // Débil: < 6 caracteres
+        // Media: 6-10 caracteres
+        // Fuerte: > 10 caracteres
+        function clasificarContraseña(password) {
+            // Completa aquí
+            return "Desconocida";
+        }
+        
+        console.log("'123':", clasificarContraseña("123"));
+        console.log("'abc123':", clasificarContraseña("abc123"));
+        console.log("'MiContraseñaSegura123':", clasificarContraseña("MiContraseñaSegura123"));
+        
+        // TODO: Usa el operador ternario para verificar si un número es positivo
+        const esPositivo = (numero) => {
+            // Completa aquí usando operador ternario
+            return false;
+        };
+        
+        console.log("¿Es 5 positivo?", esPositivo(5));
+        console.log("¿Es -3 positivo?", esPositivo(-3));
+        console.log("¿Es 0 positivo?", esPositivo(0));
+        
+        console.log("\n");
+
+        // ==========================================
+        // 8. RETO EXTRA
+        // ==========================================
+        
+        console.log("--- 8. Reto Extra ---");
+        
+        // TODO: Crea una función que determine si un año es bisiesto
+        // Un año es bisiesto si:
+        // - Es divisible por 4 Y (no divisible por 100 O divisible por 400)
+        function esBisiesto(año) {
+            // Completa aquí
+            return false;
+        }
+        
+        console.log("¿Es 2024 bisiesto?", esBisiesto(2024));
+        console.log("¿Es 2023 bisiesto?", esBisiesto(2023));
+        console.log("¿Es 2000 bisiesto?", esBisiesto(2000));
+        console.log("¿Es 1900 bisiesto?", esBisiesto(1900));
+        
+        console.log("\n=== FIN DEL EJERCICIO ===");
+        console.log("💡 Tip: Las condicionales son el cerebro de tu código");
+    </script>
+</body>
+</html>

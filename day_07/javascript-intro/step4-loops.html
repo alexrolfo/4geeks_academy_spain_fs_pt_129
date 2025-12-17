@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paso 4: Bucles</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: #f5f5f5;
+        }
+        h1 {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        .section {
+            background: white;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #764ba2;
+            margin-top: 0;
+        }
+        .console-output {
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+        }
+        .exercise {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .back-link {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .back-link:hover {
+            background: #764ba2;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-link">← Volver al índice</a>
+    
+    <h1>Paso 4: Bucles</h1>
+
+    <div class="section">
+        <h2>🔄 Repitiendo Código Eficientemente</h2>
+        <p>Los bucles nos permiten ejecutar código múltiples veces sin repetir líneas.</p>
+        <div class="console-output">
+            Abre la consola (F12) para ver los resultados →
+        </div>
+    </div>
+
+    <div class="section exercise">
+        <h2>✏️ Ejercicio</h2>
+        <p>Completa los TODOs en el código JavaScript:</p>
+        <ol>
+            <li>Usa un bucle for para calcular la suma de números del 1 al 10</li>
+            <li>Recorre un array de frutas y muestra cada una</li>
+            <li>Cuenta cuántos números pares hay en un array</li>
+        </ol>
+    </div>
+
+    <script>
+        console.log("=== PASO 4: BUCLES ===\n");
+
+        // ==========================================
+        // 1. BUCLE FOR
+        // ==========================================
+        
+        console.log("--- 1. Bucle For ---");
+        
+        // Sintaxis: for (inicialización; condición; incremento)
+        for (let i = 0; i < 5; i++) {
+            console.log(`Iteración ${i}`);
+        }
+        
+        console.log("\nContando del 1 al 10:");
+        for (let i = 1; i <= 10; i++) {
+            console.log(i);
+        }
+        
+        console.log("\nContando de 2 en 2:");
+        for (let i = 0; i <= 10; i += 2) {
+            console.log(i);
+        }
+        
+        console.log("\nContando hacia atrás:");
+        for (let i = 5; i >= 0; i--) {
+            console.log(i);
+        }
+        
+        console.log("\n");
+
+        // ==========================================
+        // 2. BUCLE WHILE
+        // ==========================================
+        
+        console.log("--- 2. Bucle While ---");
+        
+        let contador = 0;
+        while (contador < 5) {
+            console.log(`Contador: ${contador}`);
+            contador++;
+        }
+        
+        // Ejemplo: encontrar el primer múltiplo de 7 mayor que 50
+        let numero = 51;
+        while (numero % 7 !== 0) {
+            numero++;
+        }
+        console.log("\nPrimer múltiplo de 7 mayor que 50:", numero);
+        
+        console.log("\n");
+
+        // ==========================================
+        // 3. FOR...OF (RECORRER ARRAYS)
+        // ==========================================
+        
+        console.log("--- 3. For...of (Arrays) ---");
+        
+        const frutas = ["manzana", "banana", "naranja", "uva"];
+        
+        console.log("Mis frutas:");
+        for (const fruta of frutas) {
+            console.log(`- ${fruta}`);
+        }
+        
+        const numeros = [10, 20, 30, 40, 50];
+        let suma = 0;
+        
+        for (const num of numeros) {
+            suma += num;
+        }
+        console.log("\nSuma de números:", suma);
+        
+        console.log("\n");
+
+        // ==========================================
+        // 4. FOR...IN (RECORRER OBJETOS)
+        // ==========================================
+        
+        console.log("--- 4. For...in (Objetos) ---");
+        
+        const persona = {
+            nombre: "Ana",
+            edad: 25,
+            ciudad: "Madrid",
+            profesion: "Desarrolladora"
+        };
+        
+        console.log("Datos de la persona:");
+        for (const propiedad in persona) {
+            console.log(`${propiedad}: ${persona[propiedad]}`);
+        }
+        
+        // También funciona con arrays (pero usa for...of preferentemente)
+        const colores = ["rojo", "verde", "azul"];
+        console.log("\nÍndices de colores:");
+        for (const indice in colores) {
+            console.log(`Índice ${indice}: ${colores[indice]}`);
+        }
+        
+        console.log("\n");
+
+        // ==========================================
+        // 5. BREAK Y CONTINUE
+        // ==========================================
+        
+        console.log("--- 5. Break y Continue ---");
+        
+        // BREAK: Sale del bucle completamente
+        console.log("Usando break (detiene en 5):");
+        for (let i = 0; i < 10; i++) {
+            if (i === 5) {
+                break; // Sale del bucle
+            }
+            console.log(i);
+        }
+        
+        // CONTINUE: Salta a la siguiente iteración
+        console.log("\nUsando continue (salta los pares):");
+        for (let i = 0; i < 10; i++) {
+            if (i % 2 === 0) {
+                continue; // Salta esta iteración
+            }
+            console.log(i);
+        }
+        
+        console.log("\n");
+
+        // ==========================================
+        // 6. BUCLES ANIDADOS
+        // ==========================================
+        
+        console.log("--- 6. Bucles Anidados ---");
+        
+        console.log("Tabla de multiplicar del 1 al 3:");
+        for (let i = 1; i <= 3; i++) {
+            for (let j = 1; j <= 5; j++) {
+                console.log(`${i} x ${j} = ${i * j}`);
+            }
+            console.log("---");
+        }
+        
+        console.log("\n");
+
+        // ==========================================
+        // 7. CASOS PRÁCTICOS CON BUCLES
+        // ==========================================
+        
+        console.log("--- 7. Casos Prácticos ---");
+        
+        // Encontrar el mayor número en un array
+        const nums = [45, 23, 89, 12, 67, 34];
+        let mayor = nums[0];
+        
+        for (const num of nums) {
+            if (num > mayor) {
+                mayor = num;
+            }
+        }
+        console.log("Array:", nums);
+        console.log("Mayor número:", mayor);
+        
+        // Filtrar números pares
+        const numerosOriginales = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        const pares = [];
+        
+        for (const num of numerosOriginales) {
+            if (num % 2 === 0) {
+                pares.push(num);
+            }
+        }
+        console.log("\nNúmeros originales:", numerosOriginales);
+        console.log("Números pares:", pares);
+        
+        // Invertir un string
+        const palabra = "JavaScript";
+        let palabraInvertida = "";
+        
+        for (let i = palabra.length - 1; i >= 0; i--) {
+            palabraInvertida += palabra[i];
+        }
+        console.log("\nPalabra original:", palabra);
+        console.log("Palabra invertida:", palabraInvertida);
+        
+        console.log("\n");
+
+        // ==========================================
+        // 8. EJERCICIOS PRÁCTICOS
+        // ==========================================
+        
+        console.log("--- 8. ¡Tu Turno! ---");
+        
+        // TODO: Usa un bucle for para calcular la suma de números del 1 al 10
+        function sumarHasta10() {
+            let total = 0;
+            // Completa aquí
+            return total;
+        }
+        
+        console.log("Suma del 1 al 10:", sumarHasta10());
+        
+        // TODO: Recorre este array de frutas y muestra cada una en la consola
+        const misFrutas = ["manzana", "pera", "plátano", "kiwi"];
+        console.log("\nMis frutas favoritas:");
+        // Completa aquí
+        
+        // TODO: Cuenta cuántos números pares hay en este array
+        const numerosAleatorios = [12, 5, 8, 130, 44, 7, 15, 20];
+        function contarPares(array) {
+            let cantidad = 0;
+            // Completa aquí
+            return cantidad;
+        }
+        
+        console.log("\nNúmeros:", numerosAleatorios);
+        console.log("Cantidad de pares:", contarPares(numerosAleatorios));
+        
+        console.log("\n");
+
+        // ==========================================
+        // 9. RETO EXTRA
+        // ==========================================
+        
+        console.log("--- 9. Reto Extra ---");
+        
+        // TODO: Crea una función que genere la tabla de multiplicar de un número
+        function tablaMultiplicar(numero) {
+            console.log(`\nTabla del ${numero}:`);
+            // Completa aquí
+        }
+        
+        tablaMultiplicar(7);
+        
+        // TODO: Crea una función que encuentre todos los números primos hasta N
+        function numerosPrimosHasta(n) {
+            const primos = [];
+            // Un número primo solo es divisible por 1 y por sí mismo
+            // Completa aquí
+            return primos;
+        }
+        
+        console.log("\nNúmeros primos hasta 20:", numerosPrimosHasta(20));
+        
+        // TODO: Crea una función que sume todos los valores de un objeto
+        function sumarValoresObjeto(obj) {
+            let total = 0;
+            // Completa aquí
+            return total;
+        }
+        
+        const ventas = {
+            enero: 1000,
+            febrero: 1500,
+            marzo: 1200,
+            abril: 1800
+        };
+        
+        console.log("\nVentas:", ventas);
+        console.log("Total ventas:", sumarValoresObjeto(ventas));
+        
+        console.log("\n=== FIN DEL EJERCICIO ===");
+        console.log("💡 Tip: Los bucles te ahorran escribir código repetitivo");
+    </script>
+</body>
+</html>

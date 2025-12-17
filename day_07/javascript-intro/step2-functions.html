@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paso 2: Funciones</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: #f5f5f5;
+        }
+        h1 {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        .section {
+            background: white;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #764ba2;
+            margin-top: 0;
+        }
+        .console-output {
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+        }
+        .exercise {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .back-link {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .back-link:hover {
+            background: #764ba2;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-link">← Volver al índice</a>
+    
+    <h1>Paso 2: Funciones</h1>
+
+    <div class="section">
+        <h2>🔧 Funciones: Bloques de Código Reutilizables</h2>
+        <p>Las funciones son como recetas: defines una vez, usas muchas veces.</p>
+        <div class="console-output">
+            Abre la consola (F12) para ver los resultados →
+        </div>
+    </div>
+
+    <div class="section exercise">
+        <h2>✏️ Ejercicio</h2>
+        <p>Completa los TODOs en el código JavaScript:</p>
+        <ol>
+            <li>Crea una función que calcule el área de un círculo</li>
+            <li>Crea una función que determine si un número es par</li>
+            <li>Crea una función arrow que convierta grados Celsius a Fahrenheit</li>
+        </ol>
+    </div>
+
+    <script>
+        console.log("=== PASO 2: FUNCIONES ===\n");
+
+        // ==========================================
+        // 1. FUNCIONES BÁSICAS
+        // ==========================================
+        
+        console.log("--- 1. Funciones Básicas ---");
+        
+        // Función simple sin parámetros
+        function saludar() {
+            console.log("¡Hola Mundo!");
+        }
+        
+        saludar(); // Llamar la función
+        saludar(); // Puedes llamarla cuantas veces quieras
+        
+        // Función con parámetros
+        function saludarPersona(nombre) {
+            console.log(`¡Hola, ${nombre}!`);
+        }
+        
+        saludarPersona("Ana");
+        saludarPersona("Carlos");
+        saludarPersona("María");
+        
+        console.log("\n");
+
+        // ==========================================
+        // 2. FUNCIONES QUE RETORNAN VALORES
+        // ==========================================
+        
+        console.log("--- 2. Funciones que Retornan Valores ---");
+        
+        function sumar(a, b) {
+            return a + b;
+        }
+        
+        const resultado1 = sumar(5, 3);
+        const resultado2 = sumar(10, 20);
+        
+        console.log("5 + 3 =", resultado1);
+        console.log("10 + 20 =", resultado2);
+        
+        // Función que calcula el área de un rectángulo
+        function calcularAreaRectangulo(base, altura) {
+            return base * altura;
+        }
+        
+        console.log("Área rectángulo (5x3):", calcularAreaRectangulo(5, 3));
+        console.log("Área rectángulo (8x4):", calcularAreaRectangulo(8, 4));
+        
+        console.log("\n");
+
+        // ==========================================
+        // 3. SCOPE (ALCANCE) DE LAS FUNCIONES
+        // ==========================================
+        
+        console.log("--- 3. Scope de Funciones ---");
+        
+        const variableGlobal = "Soy global";
+        
+        function ejemploScope() {
+            const variableLocal = "Soy local";
+            console.log("Dentro de la función:");
+            console.log("  -", variableGlobal); // ✅ Puedo acceder a la global
+            console.log("  -", variableLocal);  // ✅ Puedo acceder a la local
+        }
+        
+        ejemploScope();
+        
+        console.log("Fuera de la función:");
+        console.log("  -", variableGlobal); // ✅ Puedo acceder a la global
+        // console.log(variableLocal); // ❌ Error: variableLocal no existe aquí
+        
+        console.log("\n");
+
+        // ==========================================
+        // 4. FUNCIONES ANÓNIMAS Y ARROW FUNCTIONS
+        // ==========================================
+        
+        console.log("--- 4. Funciones Anónimas y Arrow Functions ---");
+        
+        // Función anónima asignada a una variable
+        const multiplicar = function(a, b) {
+            return a * b;
+        };
+        
+        console.log("4 * 5 =", multiplicar(4, 5));
+        
+        // Arrow function (función flecha) - Sintaxis moderna
+        const dividir = (a, b) => {
+            return a / b;
+        };
+        
+        console.log("20 / 4 =", dividir(20, 4));
+        
+        // Arrow function corta (cuando solo hay un return)
+        const restar = (a, b) => a - b;
+        
+        console.log("15 - 7 =", restar(15, 7));
+        
+        // Arrow function con un solo parámetro (no necesita paréntesis)
+        const cuadrado = x => x * x;
+        
+        console.log("5² =", cuadrado(5));
+        console.log("8² =", cuadrado(8));
+        
+        console.log("\n");
+
+        // ==========================================
+        // 5. FUNCIONES ANIDADAS
+        // ==========================================
+        
+        console.log("--- 5. Funciones Anidadas ---");
+        
+        function calcularIVA(precio) {
+            return precio * 0.21;
+        }
+        
+        function calcularDescuento(precio, porcentaje) {
+            return precio * (porcentaje / 100);
+        }
+        
+        function precioFinal(precioBase, descuentoPorcentaje) {
+            const precioConDescuento = precioBase - calcularDescuento(precioBase, descuentoPorcentaje);
+            const iva = calcularIVA(precioConDescuento);
+            const total = precioConDescuento + iva;
+            return total;
+        }
+        
+        console.log("Precio base: 100€");
+        console.log("Descuento: 10%");
+        console.log("Precio final con IVA:", precioFinal(100, 10).toFixed(2), "€");
+        
+        console.log("\n");
+
+        // ==========================================
+        // 6. EJERCICIOS PRÁCTICOS
+        // ==========================================
+        
+        console.log("--- 6. ¡Tu Turno! ---");
+        
+        // TODO: Crea una función que calcule el área de un círculo
+        // Fórmula: PI * radio²
+        function calcularAreaCirculo(radio) {
+            // Completa aquí
+            return 0; // Reemplaza esto con tu código
+        }
+        
+        console.log("Área círculo (radio 5):", calcularAreaCirculo(5));
+        
+        // TODO: Crea una función que determine si un número es par
+        // Retorna true si es par, false si es impar
+        // Pista: usa el operador módulo (%)
+        function esPar(numero) {
+            // Completa aquí
+            return false; // Reemplaza esto con tu código
+        }
+        
+        console.log("¿Es 4 par?", esPar(4));
+        console.log("¿Es 7 par?", esPar(7));
+        
+        // TODO: Crea una función arrow que convierta Celsius a Fahrenheit
+        // Fórmula: (celsius * 9/5) + 32
+        const celsiusAFahrenheit = (celsius) => {
+            // Completa aquí
+            return 0; // Reemplaza esto con tu código
+        };
+        
+        console.log("0°C =", celsiusAFahrenheit(0), "°F");
+        console.log("100°C =", celsiusAFahrenheit(100), "°F");
+        
+        console.log("\n");
+
+        // ==========================================
+        // 7. RETO EXTRA
+        // ==========================================
+        
+        console.log("--- 7. Reto Extra ---");
+        
+        // TODO: Crea una función que calcule el índice de masa corporal (IMC)
+        // Fórmula: peso (kg) / altura² (m)
+        function calcularIMC(peso, altura) {
+            // Completa aquí
+            return 0;
+        }
+        
+        // TODO: Crea una función que clasifique el IMC
+        function clasificarIMC(imc) {
+            // Bajo peso: < 18.5
+            // Normal: 18.5 - 24.9
+            // Sobrepeso: 25 - 29.9
+            // Obesidad: >= 30
+            // Completa aquí
+            return "Desconocido";
+        }
+        
+        const miIMC = calcularIMC(70, 1.75); // 70 kg, 1.75 m
+        console.log("Mi IMC:", miIMC.toFixed(2));
+        console.log("Clasificación:", clasificarIMC(miIMC));
+        
+        console.log("\n=== FIN DEL EJERCICIO ===");
+        console.log("💡 Tip: Las funciones te ayudan a no repetir código");
+    </script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introducción a JavaScript - Día 7</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 1.2em;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .step-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .step-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .step-title {
+            font-size: 1.4em;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .step-description {
+            color: #666;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+
+        .final-project {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .final-project .step-title,
+        .final-project .step-description {
+            color: white;
+        }
+
+        .instructions {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .instructions h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .instructions ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .instructions li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .instructions li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .emoji {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><span class="emoji">💻</span>Introducción a JavaScript</h1>
+        <p class="subtitle">Aprende programación paso a paso</p>
+
+        <div class="steps-grid">
+            <a href="step1-variables.html" class="step-card">
+                <div class="step-number">1</div>
+                <div class="step-title">Variables y Datos</div>
+                <div class="step-description">
+                    Aprende a declarar variables, usar const/let, y trabajar con diferentes tipos de datos.
+                </div>
+            </a>
+
+            <a href="step2-functions.html" class="step-card">
+                <div class="step-number">2</div>
+                <div class="step-title">Funciones</div>
+                <div class="step-description">
+                    Descubre cómo crear funciones, pasar parámetros, y reutilizar código de forma eficiente.
+                </div>
+            </a>
+
+            <a href="step3-conditionals.html" class="step-card">
+                <div class="step-number">3</div>
+                <div class="step-title">Condicionales</div>
+                <div class="step-description">
+                    Controla el flujo de tu código con if/else, operadores lógicos, y el operador ternario.
+                </div>
+            </a>
+
+            <a href="step4-loops.html" class="step-card">
+                <div class="step-number">4</div>
+                <div class="step-title">Bucles</div>
+                <div class="step-description">
+                    Repite código eficientemente con for, while, for...of y for...in.
+                </div>
+            </a>
+
+            <a href="step5-final-project.html" class="step-card final-project">
+                <div class="step-number">🚀</div>
+                <div class="step-title">Proyecto Final</div>
+                <div class="step-description">
+                    Construye una calculadora interactiva usando todo lo aprendido.
+                </div>
+            </a>
+        </div>
+
+        <div class="instructions">
+            <h2>📚 Cómo usar estos ejercicios</h2>
+            <ul>
+                <li>Cada paso se enfoca en un concepto específico de JavaScript</li>
+                <li>Abre la consola del navegador (F12) para ver los resultados</li>
+                <li>Lee el código y los comentarios con atención</li>
+                <li>Modifica los valores y experimenta</li>
+                <li>Completa los ejercicios marcados con "TODO"</li>
+                <li>No tengas miedo de romper el código - aprenderás de los errores</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
