@@ -1,4 +1,4 @@
-# Step 5: Fetch con React 🚀
+# Step 8: Fetch con React 🚀
 
 ## Integrar Fetch en Componentes
 

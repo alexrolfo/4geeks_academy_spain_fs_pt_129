@@ -1,4 +1,4 @@
-# Step 4: REST APIs 🏗️
+# Step 7: REST APIs 🏭
 
 ## ¿Qué es REST?
 

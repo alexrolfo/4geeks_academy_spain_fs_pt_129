@@ -1,4 +1,4 @@
-# Step 2: Async/Await ⏳
+# Step 5: Async/Await ⏳
 
 ## ¿Qué es Async/Await?
 
@@ -290,8 +290,9 @@ Una vez domines async/await:
 ✅ Integración con React  
 
 Estarás listo para:
-- **Step 3**: Fetch API completa
-- **Step 5**: Fetch en componentes React
+- **Step 6**: Fetch API completa
+- **Step 7**: REST APIs
+- **Step 8**: Fetch en componentes React
 
 ---
 

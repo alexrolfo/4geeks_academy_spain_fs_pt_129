@@ -4,6 +4,10 @@
 
 Hoy aprenderás a conectar tu aplicación React con APIs reales usando Fetch. Los conceptos clave son:
 
+- **Síncrono vs Asíncrono**: Conceptos fundamentales de programación asíncrona
+- **setTimeout**: Primera herramienta asíncrona en JavaScript
+- **Callbacks**: Funciones que se ejecutan después de algo
+- **Callback Hell**: El problema que solucionan las Promises
 - **Promises**: Entender promesas en JavaScript
 - **Async/Await**: Sintaxis moderna para código asincrónico
 - **Fetch API**: Hacer peticiones HTTP desde React
@@ -13,12 +17,51 @@ Hoy aprenderás a conectar tu aplicación React con APIs reales usando Fetch. Lo
 
 ## 📚 Estructura del Día
 
-Este día tiene 6 pasos progresivos, cada uno construyendo sobre el anterior:
+Este día tiene **9 pasos progresivos**, cada uno construyendo sobre el anterior. Es fundamental seguir el orden.
 
-### Step 1: Promises 🤝
-**Archivo**: `step1-promises/`
+### Step 1: Síncrono vs Asíncrono 🔄
+**Archivo**: `step1-sync-async/`
 
-Entiende cómo funcionan las promesas en JavaScript.
+Entiende los conceptos fundamentales de código síncrono y asíncrono.
+
+**Conceptos**:
+- Qué es código síncrono (bloqueante)
+- Qué es código asíncrono (no bloqueante)
+- Ejemplos de vida real
+- Por qué JavaScript necesita asincronía
+
+---
+
+### Step 2: setTimeout - Tu Primera Herramienta Asíncrona ⏱️
+**Archivo**: `step2-settimeout/`
+
+Aprende a usar setTimeout y setInterval.
+
+**Conceptos**:
+- setTimeout y setInterval
+- clearTimeout y clearInterval
+- Event Loop básico
+- Call Stack y Task Queue
+
+---
+
+### Step 3: Callbacks y el "Callback Hell" 🔥
+**Archivo**: `step3-callbacks-hell/`
+
+Entiende qué son los callbacks y el problema que generan.
+
+**Conceptos**:
+- Qué es un callback
+- Callbacks anidados
+- El problema del "Callback Hell"
+- Por qué necesitamos Promises
+
+---
+
+### Step 4: Promises - La Solución 🤝
+**Archivo**: `step4-promises/`
+
+Aprende cómo las Promises solucionan el Callback Hell.
 
 **Conceptos**:
 - Qué es una Promise
@@ -28,10 +71,10 @@ Entiende cómo funcionan las promesas en JavaScript.
 
 ---
 
-### Step 2: Async/Await ⏳
-**Archivo**: `step2-async-await/`
+### Step 5: Async/Await ⏳
+**Archivo**: `step5-async-await/`
 
-Aprende la sintaxis moderna para código asincrónico.
+Sintaxis moderna y más legible sobre Promises.
 
 **Conceptos**:
 - async function
@@ -41,8 +84,8 @@ Aprende la sintaxis moderna para código asincrónico.
 
 ---
 
-### Step 3: Fetch API 🌐
-**Archivo**: `step3-fetch-api/`
+### Step 6: Fetch API 🌐
+**Archivo**: `step6-fetch-api/`
 
 Haz peticiones HTTP usando Fetch.
 
@@ -54,8 +97,8 @@ Haz peticiones HTTP usando Fetch.
 
 ---
 
-### Step 4: REST APIs 🏗️
-**Archivo**: `step4-rest-apis/`
+### Step 7: REST APIs 🏭️
+**Archivo**: `step7-rest-apis/`
 
 Entiende qué son REST APIs y cómo funcionan.
 
@@ -67,8 +110,8 @@ Entiende qué son REST APIs y cómo funcionan.
 
 ---
 
-### Step 5: Fetch con React 🚀
-**Archivo**: `step5-fetch-datos/`
+### Step 8: Fetch con React 🚀
+**Archivo**: `step8-fetch-react/`
 
 Integra Fetch con React hooks.
 
@@ -80,8 +123,8 @@ Integra Fetch con React hooks.
 
 ---
 
-### Step 6: TodoList con API 💾
-**Archivo**: `step6-todolist-api/`
+### Step 9: TodoList con API 💾
+**Archivo**: `step9-todolist-api/`
 
 Crea un TodoList completo que consume una API.
 
@@ -144,14 +187,19 @@ Crearás un TodoList que:
 
 ### Para Principiantes
 
-1. **Entiende Promises primero**: No saltes a Async/Await sin entender Promises
-2. **Usa el Dev Tools**: Abre la consola y Network para ver las peticiones
-3. **Maneja errores**: Siempre incluye try/catch o .catch()
-4. **Estados de UI**: Loading, success, error son fundamentales
-5. **Inspecciona APIs**: Usa herramientas como Postman o el navegador
+1. **Sigue el orden**: Los 9 steps están diseñados para aprendizaje incremental
+2. **Entiende conceptos básicos primero**: Síncrono vs Asíncrono antes de Promises
+3. **Practica con ejemplos**: Copia y ejecuta el código en tu navegador
+4. **Usa el Dev Tools**: Abre la consola y Network para ver las peticiones
+5. **Maneja errores**: Siempre incluye try/catch o .catch()
+6. **Estados de UI**: Loading, success, error son fundamentales
+7. **Inspecciona APIs**: Usa herramientas como Postman o el navegador
 
 ### Conceptos Críticos
 
+- **Síncrono vs Asíncrono**: La base de todo lo demás
+- **Event Loop**: Cómo JavaScript maneja operaciones asíncronas
+- **Callback Hell**: Por qué existen las Promises
 - **Asincronía**: El código continúa mientras espera la respuesta
 - **Estados**: Tu componente puede estar en loading, success o error
 - **CORS**: Algunos problemas vienen de políticas de origen
@@ -216,12 +264,15 @@ useEffect(() => {
 
 Marca cada paso cuando lo completes:
 
-- [ ] Step 1: Promises
-- [ ] Step 2: Async/Await
-- [ ] Step 3: Fetch API
-- [ ] Step 4: REST APIs
-- [ ] Step 5: Fetch con React
-- [ ] Step 6: TodoList con API
+- [ ] Step 1: Síncrono vs Asíncrono
+- [ ] Step 2: setTimeout y setInterval
+- [ ] Step 3: Callbacks y Callback Hell
+- [ ] Step 4: Promises
+- [ ] Step 5: Async/Await
+- [ ] Step 6: Fetch API
+- [ ] Step 7: REST APIs
+- [ ] Step 8: Fetch con React
+- [ ] Step 9: TodoList con API
 - [ ] Proyecto Final: TodoList Completa
 
 ---

@@ -1,4 +1,4 @@
-# Step 3: Fetch API 🌐
+# Step 6: Fetch API 🌐
 
 ## ¿Qué es Fetch?
 
@@ -244,8 +244,9 @@ Una vez domines Fetch:
 ✅ Manejo de errores  
 
 Estarás listo para:
-- **Step 5**: Integrar Fetch en componentes React
-- **Step 6**: TodoList completa con API
+- **Step 7**: REST APIs - Conceptos fundamentales
+- **Step 8**: Integrar Fetch en componentes React
+- **Step 9**: TodoList completa con API
 
 ---
 

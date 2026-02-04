@@ -1,4 +1,23 @@
-# Step 1: Promises 🤝
+# Step 4: Promises - La Solución al Callback Hell 🤝
+
+## Recordando el Problema: Callback Hell
+
+En el **Step 3** vimos cómo los callbacks anidados crean código difícil de leer y mantener (Callback Hell):
+
+```javascript
+// Callback Hell ❌
+obtenerUsuario(1, (error, usuario) => {
+  obtenerPosts(usuario.id, (error, posts) => {
+    obtenerComentarios(posts[0].id, (error, comentarios) => {
+      console.log('Listo!');
+    });
+  });
+});
+```
+
+**Promises** solucionan este problema.
+
+---
 
 ## ¿Qué es una Promise?
 
@@ -8,6 +27,21 @@ Es como un pedido en un restaurante:
 - **Haces el pedido** (crear Promise)
 - **Esperas** (Promise pendiente)
 - **Recibes el resultado** (Promise resuelta) o **te dicen que no hay** (Promise rechazada)
+
+### La Ventaja Principal
+
+Con Promises, el mismo código se vuelve lineal:
+
+```javascript
+// Con Promises ✅
+obtenerUsuario(1)
+  .then(usuario => obtenerPosts(usuario.id))
+  .then(posts => obtenerComentarios(posts[0].id))
+  .then(comentarios => console.log('Listo!'))
+  .catch(error => console.log('Error:', error));
+```
+
+**Mucho más legible** 🎉
 
 ## Los 3 Estados de una Promise
 
@@ -229,8 +263,8 @@ Una vez entiendas Promises:
 ✅ Promise chaining  
 
 Estarás listo para:
-- **Step 2**: Async/Await (forma más limpia de usar Promises)
-- **Step 3**: Fetch API
+- **Step 5**: Async/Await (forma más limpia de usar Promises)
+- **Step 6**: Fetch API
 
 ---
 
